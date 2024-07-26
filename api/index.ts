@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import express from "express";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+
 import zoro from "./client/Zoro";
 import home from "./routes/home";
+import anime from "./routes/anime"
+
 import AnimePageType from "./types/animepage.type";
 
 
@@ -12,6 +15,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use("/home", home);
+app.use("/anime", anime);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({
