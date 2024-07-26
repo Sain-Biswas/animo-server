@@ -14,7 +14,11 @@ const port = process.env.PORT || 3000;
 app.use("/home", home);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to Animo - Server API");
+  res.json({
+    message: "Welcome to Animo - Server API",
+    isWorking: true,
+    description: "Use with Caution"
+  })
 });
 
 app.get('/top-airing/:page', async (req: Request, res: Response) => {
