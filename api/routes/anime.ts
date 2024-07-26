@@ -3,6 +3,7 @@ import { join } from "path";
 import zoro from "../client/Zoro";
 import AnimeType from "../types/anime.type";
 import { title } from "process";
+import WatchType from "../types/watch.type";
 
 const router = express.Router();
 
@@ -75,7 +76,19 @@ router.get("/:name", async (req : Request, res: Response) => {
 router.get("/episode/:episode", async (req: Request, res: Response) => {
     const response = await zoro.fetchEpisodeSources(req.params.episode);
 
-    res.json(response);
+    const data : WatchType = {
+        episodeSource: response.sources[0].url,
+        subTitles: []
+    }
+
+    data.subTitles = response.subtitles?.map((vtt) => {
+        return{
+            source: vtt.url,
+            language: vtt.lang
+        }
+    });
+
+    res.json(data);
 });
 
 export default router;
