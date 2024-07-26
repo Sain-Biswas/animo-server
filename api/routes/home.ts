@@ -137,4 +137,22 @@ router.get("/recently-added", async (req: Request, res: Response)=>{
     res.json(data);
 });
 
+router.get("/upcoming", async (req: Request, res: Response)=>{
+    const response = await zoro.fetchTopUpcoming();
+
+    const data: AnimeCardType[] = response.results.slice(0,12).map((anime) => {
+        return {
+            id: anime.id,
+            title: anime.title,
+            titleJapanese: anime.japaneseTitle,
+            banner: anime.image,
+            duration: anime.duration,
+            episodes: anime.sub,
+            type: anime.type
+        }
+    })
+
+    res.json(data);
+});
+
 export default router;
